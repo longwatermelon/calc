@@ -4,7 +4,6 @@
 #include "parser.h"
 
 int visitor_visit(struct Node *node);
-int visitor_visit_add(struct Node *node);
 
 #endif
 

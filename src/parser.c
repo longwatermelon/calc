@@ -40,7 +40,10 @@ struct Node *parser_parse(struct Parser *self)
         switch (self->tokens[i].type)
         {
         case TOKEN_ADD:
-            root = parser_parse_add(self, root, i);
+            root = parser_parse_op(self, root, i, NODE_ADD);
+            break;
+        case TOKEN_SUB:
+            root = parser_parse_op(self, root, i, NODE_SUB);
             break;
         default:
             continue;
@@ -51,10 +54,10 @@ struct Node *parser_parse(struct Parser *self)
 }
 
 
-struct Node *parser_parse_add(struct Parser *self, struct Node *root, int token)
+struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, int op)
 {
-    struct Node* node = malloc(sizeof(struct Node));
-    node->type = NODE_ADD;
+    struct Node *node = malloc(sizeof(struct Node));
+    node->type = op;
 
     if (!root) // Encountered first operator, no expressions possible on left
     {

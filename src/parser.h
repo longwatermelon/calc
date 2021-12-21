@@ -6,13 +6,14 @@ struct Node
     enum
     {
         NODE_INT,
-        NODE_ADD
+        NODE_ADD,
+        NODE_SUB
     } type;
 
     // int
     int int_value;
 
-    // add
+    // operator
     struct Node *left, *right;
 };
 
@@ -29,7 +30,10 @@ void parser_free(struct Parser *self);
 
 struct Node *parser_parse(struct Parser *self);
 
+
+struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, int op);
 struct Node *parser_parse_add(struct Parser *self, struct Node *root, int token);
+struct Node *parser_parse_sub(struct Parser *self, struct Node *root, int token);
 
 #endif
 

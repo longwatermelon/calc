@@ -8,6 +8,7 @@ struct Token
     enum
     {
         TOKEN_ADD,
+        TOKEN_SUB,
         TOKEN_INT,
         TOKEN_EOL
     } type;
