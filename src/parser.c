@@ -77,8 +77,15 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
         }
         else if (op == NODE_MUL || op == NODE_DIV)
         {
-            node->left = root->right;
-            root->right = node;
+            if (root->type == NODE_MUL || root->type == NODE_DIV)
+            {
+                node->left = root;
+            }
+            else
+            {
+                node->left = root->right;
+                root->right = node;
+            }
         }
     }
 
@@ -93,7 +100,12 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
         if (!root)
             return node;
         else
-            return root;
+        {
+            if (root->type == NODE_MUL || root->type == NODE_DIV)
+                return node;
+            else
+                return root;
+        }
     }
 }
 
