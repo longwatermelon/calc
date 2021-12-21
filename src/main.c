@@ -1,5 +1,6 @@
 #include "lexer.h"
 #include "parser.h"
+#include "visitor.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -27,6 +28,9 @@ int main(int argc, char **argv)
 
     struct Parser *parser = parser_alloc(tokens, ntokens);
     struct Node *root = parser_parse(parser);
+
+    int result = visitor_visit(root);
+    printf("%d\n", result);
 
     // TODO Write a function to free nodes
     free(root);
