@@ -1,5 +1,6 @@
 #include "parser.h"
 #include "lexer.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 
@@ -44,8 +45,7 @@ struct Node *parser_parse(struct Parser *self)
         case TOKEN_ADD: type = NODE_ADD; break;
         case TOKEN_SUB: type = NODE_SUB; break;
         case TOKEN_MUL: type = NODE_MUL; break;
-        case TOKEN_EOL: break;
-        case TOKEN_INT: break;
+        default: break;
         }
 
         if (type != -1)
@@ -58,6 +58,7 @@ struct Node *parser_parse(struct Parser *self)
 
 struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, int op)
 {
+    // TODO clean this up later
     struct Node *node = malloc(sizeof(struct Node));
     node->type = op;
 
@@ -69,13 +70,29 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
     }
     else
     {
-        node->left = root;
+        if (op == NODE_ADD || op == NODE_SUB)
+        {
+            node->left = root;
+        }
+        else if (op == NODE_MUL)
+        {
+            node->left = root->right;
+            root->right = node;
+        }
     }
 
     node->right = malloc(sizeof(struct Node));
     node->right->type = NODE_INT;
     node->right->int_value = atoi(self->tokens[token + 1].value);
 
-    return node;
+    if (op == NODE_ADD || op == NODE_SUB)
+        return node;
+    else
+    {
+        if (!root)
+            return node;
+        else
+            return root;
+    }
 }
 
