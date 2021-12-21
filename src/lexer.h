@@ -10,6 +10,7 @@ struct Token
         TOKEN_ADD,
         TOKEN_SUB,
         TOKEN_INT,
+        TOKEN_MUL,
         TOKEN_EOL
     } type;
 

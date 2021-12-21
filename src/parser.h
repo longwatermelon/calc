@@ -7,7 +7,8 @@ struct Node
     {
         NODE_INT,
         NODE_ADD,
-        NODE_SUB
+        NODE_SUB,
+        NODE_MUL
     } type;
 
     // int
@@ -29,11 +30,7 @@ struct Parser *parser_alloc(struct Token *tokens, int ntokens);
 void parser_free(struct Parser *self);
 
 struct Node *parser_parse(struct Parser *self);
-
-
 struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, int op);
-struct Node *parser_parse_add(struct Parser *self, struct Node *root, int token);
-struct Node *parser_parse_sub(struct Parser *self, struct Node *root, int token);
 
 #endif
 

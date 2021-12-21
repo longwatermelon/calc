@@ -37,17 +37,19 @@ struct Node *parser_parse(struct Parser *self)
 
     for (int i = 0; i < self->ntokens; ++i)
     {
+        int type = -1;
+
         switch (self->tokens[i].type)
         {
-        case TOKEN_ADD:
-            root = parser_parse_op(self, root, i, NODE_ADD);
-            break;
-        case TOKEN_SUB:
-            root = parser_parse_op(self, root, i, NODE_SUB);
-            break;
-        default:
-            continue;
+        case TOKEN_ADD: type = NODE_ADD; break;
+        case TOKEN_SUB: type = NODE_SUB; break;
+        case TOKEN_MUL: type = NODE_MUL; break;
+        case TOKEN_EOL: break;
+        case TOKEN_INT: break;
         }
+
+        if (type != -1)
+            root = parser_parse_op(self, root, i, type);
     }
 
     return root;
