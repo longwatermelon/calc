@@ -3,7 +3,7 @@
 
 #include "parser.h"
 
-int visitor_visit(struct Node *node);
+float visitor_visit(struct Node *node);
 
 #endif
 

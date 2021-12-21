@@ -6,7 +6,7 @@
 
 void node_free(struct Node *node)
 {
-    if (node->type != NODE_INT)
+    if (node->type != NODE_NUM)
     {
         node_free(node->left);
         node_free(node->right);
@@ -66,8 +66,8 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
     if (!root) // Encountered first operator, no expressions possible on left
     {
         node->left = malloc(sizeof(struct Node));
-        node->left->type = NODE_INT;
-        node->left->int_value = atoi(self->tokens[token - 1].value);
+        node->left->type = NODE_NUM;
+        node->left->num_value = atoi(self->tokens[token - 1].value);
     }
     else
     {
@@ -83,8 +83,8 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
     }
 
     node->right = malloc(sizeof(struct Node));
-    node->right->type = NODE_INT;
-    node->right->int_value = atoi(self->tokens[token + 1].value);
+    node->right->type = NODE_NUM;
+    node->right->num_value = atoi(self->tokens[token + 1].value);
 
     if (op == NODE_ADD || op == NODE_SUB)
         return node;

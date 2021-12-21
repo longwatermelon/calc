@@ -29,8 +29,8 @@ int main(int argc, char **argv)
     struct Parser *parser = parser_alloc(tokens, ntokens);
     struct Node *root = parser_parse(parser);
 
-    int result = visitor_visit(root);
-    printf("%d\n", result);
+    float result = visitor_visit(root);
+    printf("%f\n", result);
 
     for (int i = 0; i < ntokens; ++i)
         free(tokens[i].value);

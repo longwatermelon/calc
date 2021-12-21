@@ -5,15 +5,15 @@ struct Node
 {
     enum
     {
-        NODE_INT,
+        NODE_NUM,
         NODE_ADD,
         NODE_SUB,
         NODE_MUL,
         NODE_DIV
     } type;
 
-    // int
-    int int_value;
+    // num
+    float num_value;
 
     // operator
     struct Node *left, *right;

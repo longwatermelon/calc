@@ -1,7 +1,7 @@
 #include "visitor.h"
 
 
-int visitor_visit(struct Node *node)
+float visitor_visit(struct Node *node)
 {
     // TODO use floats
     switch (node->type)
@@ -14,8 +14,8 @@ int visitor_visit(struct Node *node)
         return visitor_visit(node->left) * visitor_visit(node->right);
     case NODE_DIV:
         return visitor_visit(node->left) / visitor_visit(node->right);
-    case NODE_INT:
-        return node->int_value;
+    case NODE_NUM:
+        return node->num_value;
     }
 
     // Should never reach here
