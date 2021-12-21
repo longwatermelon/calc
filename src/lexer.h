@@ -11,6 +11,7 @@ struct Token
         TOKEN_SUB,
         TOKEN_INT,
         TOKEN_MUL,
+        TOKEN_DIV,
         TOKEN_EOL
     } type;
 

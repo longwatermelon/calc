@@ -8,7 +8,8 @@ struct Node
         NODE_INT,
         NODE_ADD,
         NODE_SUB,
-        NODE_MUL
+        NODE_MUL,
+        NODE_DIV
     } type;
 
     // int

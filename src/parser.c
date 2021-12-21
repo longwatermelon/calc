@@ -45,6 +45,7 @@ struct Node *parser_parse(struct Parser *self)
         case TOKEN_ADD: type = NODE_ADD; break;
         case TOKEN_SUB: type = NODE_SUB; break;
         case TOKEN_MUL: type = NODE_MUL; break;
+        case TOKEN_DIV: type = NODE_DIV; break;
         default: break;
         }
 
@@ -74,7 +75,7 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
         {
             node->left = root;
         }
-        else if (op == NODE_MUL)
+        else if (op == NODE_MUL || op == NODE_DIV)
         {
             node->left = root->right;
             root->right = node;
