@@ -1,4 +1,5 @@
 #include "lexer.h"
+#include "parser.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -24,8 +25,15 @@ int main(int argc, char **argv)
         tokens[ntokens - 1] = t;
     }
 
+    struct Parser *parser = parser_alloc(tokens, ntokens);
+    struct Node *root = parser_parse(parser);
+
+    // TODO Write a function to free nodes
+    free(root);
+
     free(tokens);
     lexer_free(lexer);
+    parser_free(parser);
 
     return 0;
 }
