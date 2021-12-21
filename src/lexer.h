@@ -15,6 +15,8 @@ struct Token
     char *value;
 };
 
+void token_free(struct Token *t);
+
 struct Lexer
 {
     char *expr;

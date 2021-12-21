@@ -9,7 +9,8 @@ int visitor_visit(struct Node *node)
     case NODE_INT: return node->int_value;
     }
 
-    return -1;
+    // Should never reach here
+    return 0;
 }
 
 

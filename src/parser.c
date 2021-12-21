@@ -3,6 +3,18 @@
 #include <stdlib.h>
 
 
+void node_free(struct Node *node)
+{
+    if (node->type != NODE_INT)
+    {
+        node_free(node->left);
+        node_free(node->right);
+    }
+
+    free(node);
+}
+
+
 struct Parser *parser_alloc(struct Token *tokens, int ntokens)
 {
     struct Parser *self = malloc(sizeof(struct Parser));

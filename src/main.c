@@ -32,10 +32,12 @@ int main(int argc, char **argv)
     int result = visitor_visit(root);
     printf("%d\n", result);
 
-    // TODO Write a function to free nodes
-    free(root);
+    for (int i = 0; i < ntokens; ++i)
+        free(tokens[i].value);
 
     free(tokens);
+
+    node_free(root);
     lexer_free(lexer);
     parser_free(parser);
 

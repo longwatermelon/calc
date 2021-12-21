@@ -16,6 +16,8 @@ struct Node
     struct Node *left, *right;
 };
 
+void node_free(struct Node *node);
+
 struct Parser
 {
     struct Token *tokens;
