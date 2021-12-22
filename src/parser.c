@@ -66,9 +66,7 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
 
     if (!root) // Encountered first operator, no expressions possible on left
     {
-        node->left = malloc(sizeof(struct Node));
-        node->left->type = NODE_NUM;
-        node->left->num_value = atoi(self->tokens[token - 1].value);
+        node->left = parser_num_from_token(self, token - 1);
     }
     else
     {
@@ -90,9 +88,7 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
         }
     }
 
-    node->right = malloc(sizeof(struct Node));
-    node->right->type = NODE_NUM;
-    node->right->num_value = atoi(self->tokens[token + 1].value);
+    node->right = parser_num_from_token(self, token + 1);
 
     if (!PRIORITY_OP(op))
         return node;
@@ -108,5 +104,15 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
                 return root;
         }
     }
+}
+
+
+struct Node *parser_num_from_token(struct Parser *self, int token)
+{
+    struct Node *node = malloc(sizeof(struct Node));
+    node->type = NODE_NUM;
+    node->num_value = atoi(self->tokens[token].value);
+
+    return node;
 }
 

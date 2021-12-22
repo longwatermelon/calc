@@ -33,5 +33,7 @@ void parser_free(struct Parser *self);
 struct Node *parser_parse(struct Parser *self);
 struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, int op);
 
+struct Node *parser_num_from_token(struct Parser *self, int token);
+
 #endif
 
