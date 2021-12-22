@@ -25,13 +25,15 @@ struct Parser
 {
     struct Token *tokens;
     int ntokens;
+
+    int token;
 };
 
 struct Parser *parser_alloc(struct Token *tokens, int ntokens);
 void parser_free(struct Parser *self);
 
 struct Node *parser_parse(struct Parser *self);
-struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, int op);
+struct Node *parser_parse_op(struct Parser *self, struct Node *root, int op);
 
 struct Node *parser_num_from_token(struct Parser *self, int token);
 
