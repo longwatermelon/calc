@@ -15,7 +15,7 @@ struct Token
         TOKEN_EOL
     } type;
 
-    char *value;
+    int value;
 };
 
 void token_free(struct Token *t);
@@ -31,7 +31,7 @@ struct Lexer *lexer_alloc(char *expr);
 void lexer_free(struct Lexer *self);
 
 void lexer_advance(struct Lexer *self);
-char *lexer_collect_int(struct Lexer *self);
+int lexer_collect_int(struct Lexer *self);
 
 struct Token lexer_get_next_token(struct Lexer *self);
 

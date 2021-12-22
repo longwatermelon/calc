@@ -32,11 +32,7 @@ int main(int argc, char **argv)
     float result = visitor_visit(root);
     printf("%f\n", result);
 
-    for (int i = 0; i < ntokens; ++i)
-        free(tokens[i].value);
-
     free(tokens);
-
     node_free(root);
     lexer_free(lexer);
     parser_free(parser);

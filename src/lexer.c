@@ -31,7 +31,7 @@ void lexer_advance(struct Lexer *self)
 }
 
 
-char *lexer_collect_int(struct Lexer *self)
+int lexer_collect_int(struct Lexer *self)
 {
     size_t start = self->idx;
 
@@ -44,7 +44,10 @@ char *lexer_collect_int(struct Lexer *self)
     memcpy(substr, &self->expr[start], len);
     substr[len] = '\0';
 
-    return substr;
+    int ret = atoi(substr);
+    free(substr);
+
+    return ret;
 }
 
 
@@ -67,25 +70,25 @@ struct Token lexer_get_next_token(struct Lexer *self)
             lexer_advance(self);
             return (struct Token){
                 .type = TOKEN_ADD,
-                .value = util_ch_to_str('+')
+                .value = 0
             };
         case '-':
             lexer_advance(self);
             return (struct Token){
                 .type = TOKEN_SUB,
-                .value = util_ch_to_str('-')
+                .value = 0
             };
         case '*':
             lexer_advance(self);
             return (struct Token){
                 .type = TOKEN_MUL,
-                .value = util_ch_to_str('*')
+                .value = 0
             };
         case '/':
             lexer_advance(self);
             return (struct Token){
                 .type = TOKEN_DIV,
-                .value = util_ch_to_str('/')
+                .value = 0
             };
         case '\0':
             return (struct Token){ .type = TOKEN_EOL, .value = 0 };

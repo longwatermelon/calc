@@ -107,7 +107,7 @@ struct Node *parser_num_from_token(struct Parser *self, int token)
 
     struct Node *node = malloc(sizeof(struct Node));
     node->type = NODE_NUM;
-    node->num_value = atoi(self->tokens[token].value);
+    node->num_value = self->tokens[token].value;
 
     return node;
 }
