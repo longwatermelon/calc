@@ -70,40 +70,23 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
     }
     else
     {
-        if (!PRIORITY_OP(op))
+        if (!PRIORITY_OP(op) || PRIORITY_OP(root->type))
         {
             node->left = root;
         }
         else
         {
-            if (PRIORITY_OP(root->type))
-            {
-                node->left = root;
-            }
-            else
-            {
-                node->left = root->right;
-                root->right = node;
-            }
+            node->left = root->right;
+            root->right = node;
         }
     }
 
     node->right = parser_num_from_token(self, token + 1);
 
-    if (!PRIORITY_OP(op))
+    if (!root || !PRIORITY_OP(op) || PRIORITY_OP(root->type))
         return node;
     else
-    {
-        if (!root)
-            return node;
-        else
-        {
-            if (PRIORITY_OP(root->type))
-                return node;
-            else
-                return root;
-        }
-    }
+        return root;
 }
 
 
