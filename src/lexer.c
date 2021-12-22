@@ -87,6 +87,8 @@ struct Token lexer_get_next_token(struct Lexer *self)
                 .type = TOKEN_DIV,
                 .value = util_ch_to_str('/')
             };
+        case '\0':
+            return (struct Token){ .type = TOKEN_EOL, .value = 0 };
         }
 
         fprintf(stderr, "Unrecognized character '%c'\n", self->curr_ch);
