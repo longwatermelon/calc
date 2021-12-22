@@ -93,6 +93,18 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
 
 struct Node *parser_num_from_token(struct Parser *self, int token)
 {
+    if (token < 0 || token >= self->ntokens)
+    {
+        fprintf(stderr, "Error: index out of range (%d)\n", token);
+        exit(1);
+    }
+
+    if (self->tokens[token].type != TOKEN_INT)
+    {
+        fprintf(stderr, "Error: expected a number on token %d\n", token + 1);
+        exit(1);
+    }
+
     struct Node *node = malloc(sizeof(struct Node));
     node->type = NODE_NUM;
     node->num_value = atoi(self->tokens[token].value);
