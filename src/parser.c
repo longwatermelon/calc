@@ -60,7 +60,6 @@ struct Node *parser_parse(struct Parser *self)
 
 struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, int op)
 {
-    // TODO clean this up later
     struct Node *node = malloc(sizeof(struct Node));
     node->type = op;
 
@@ -70,11 +69,12 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
     }
     else
     {
+        // If op is not priority (* or /) or the previous node type is priority then evaluate left to right
         if (!PRIORITY_OP(op) || PRIORITY_OP(root->type))
         {
             node->left = root;
         }
-        else
+        else // Evaluate current expression and attach to root, right to left
         {
             node->left = root->right;
             root->right = node;
@@ -83,9 +83,10 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
 
     node->right = parser_num_from_token(self, token + 1);
 
+    // Evaluating left to right, root is part of node
     if (!root || !PRIORITY_OP(op) || PRIORITY_OP(root->type))
         return node;
-    else
+    else // Evaluating right to left, node is part of root
         return root;
 }
 
