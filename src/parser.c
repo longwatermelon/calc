@@ -39,10 +39,13 @@ struct Node *parser_parse(struct Parser *self)
 {
     struct Node *root = 0;
 
-    for (self->token = 0; self->token < self->ntokens; ++self->token)
+    while (self->token < self->ntokens)
     {
         if (self->tokens[self->token].type == TOKEN_INT)
+        {
+            ++self->token;
             continue;
+        }
 
         switch (self->tokens[self->token].type)
         {
@@ -89,7 +92,7 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int op)
         }
     }
 
-    node->right = parser_num_from_token(self, self->token + 1);
+    node->right = parser_num_from_token(self, ++self->token);
 
     // Evaluating left to right, root is part of node
     if (!root || !PRIORITY_OP(op) || PRIORITY_OP(root->type))
