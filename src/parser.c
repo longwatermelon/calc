@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define PRIORITY_OP(x) (x == NODE_MUL || x == NODE_DIV)
 
 void node_free(struct Node *node)
 {
@@ -71,13 +72,13 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
     }
     else
     {
-        if (op == NODE_ADD || op == NODE_SUB)
+        if (!PRIORITY_OP(op))
         {
             node->left = root;
         }
-        else if (op == NODE_MUL || op == NODE_DIV)
+        else
         {
-            if (root->type == NODE_MUL || root->type == NODE_DIV)
+            if (PRIORITY_OP(root->type))
             {
                 node->left = root;
             }
@@ -93,7 +94,7 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
     node->right->type = NODE_NUM;
     node->right->num_value = atoi(self->tokens[token + 1].value);
 
-    if (op == NODE_ADD || op == NODE_SUB)
+    if (!PRIORITY_OP(op))
         return node;
     else
     {
@@ -101,7 +102,7 @@ struct Node *parser_parse_op(struct Parser *self, struct Node *root, int token, 
             return node;
         else
         {
-            if (root->type == NODE_MUL || root->type == NODE_DIV)
+            if (PRIORITY_OP(root->type))
                 return node;
             else
                 return root;
